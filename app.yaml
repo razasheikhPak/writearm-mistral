@@ -1,3 +1,38 @@
+# runtime: custom
+# env: flex
+
+# # entrypoint: gunicorn -b :$PORT main:app --timeout 180
+# runtime_config:
+#   docker: gcr.io/writearmai/writearm-app
+
+# env_variables:
+#   DB_USER: "matrix"
+#   DB_PASS: "matrix"
+#   DB_NAME: "matrix"
+#   DB_HOST: "/cloudsql/writearm-brain:us-central1:writearm-brain"
+#   INSTANCE_CONNECTION_NAME: "writearm-brain:us-central1:writearm-brain"
+#   FLASK_SECRET_KEY: "1e84ea6d397fe8953ca61c4ce7de31aa5d248dc33c331bdc4e6c26ac6e7ef6f0"
+#   OPENAI_API_KEY: "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"
+#   APP_USER: 'GITM'
+#   APP_PASS: 'GITM123'
+  
+# beta_settings:
+#   cloud_sql_instances: writearm-brain:us-central1:writearm-brain
+
+# # Remove this block entirely for flex env
+# # automatic_scaling:
+# #   min_instances: 1
+# #   max_instances: 2
+# #   min_idle_instances: 0
+# #   max_idle_instances: 1
+
+# # Optional: For basic scaling control
+# resources:
+#   cpu: 1
+#   memory_gb: 1
+#   disk_size_gb: 10
+
+
 runtime: custom
 env: flex
 
@@ -7,17 +42,17 @@ runtime_config:
 
 env_variables:
   DB_USER: "matrix"
-  DB_PASS: "matrix"
+  DB_PASS: "matrix"  # Consider using Secret Manager for security
   DB_NAME: "matrix"
-  DB_HOST: "/cloudsql/writearm-brain:us-central1:writearm-brain"
-  INSTANCE_CONNECTION_NAME: "writearm-brain:us-central1:writearm-brain"
-  FLASK_SECRET_KEY: "1e84ea6d397fe8953ca61c4ce7de31aa5d248dc33c331bdc4e6c26ac6e7ef6f0"
-  OPENAI_API_KEY: "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"
+  DB_HOST: "/cloudsql/writearmai:us-central1:wirearm-db"
+  INSTANCE_CONNECTION_NAME: "writearmai:us-central1:wirearm-db"
+  FLASK_SECRET_KEY: "1e84ea6d397fe8953ca61c4ce7de31aa5d248dc33c331bdc4e6c26ac6e7ef6f0"  # Consider using Secret Manager
+  OPENAI_API_KEY: "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"  # Consider using Secret Manager
   APP_USER: 'GITM'
   APP_PASS: 'GITM123'
-  
+
 beta_settings:
-  cloud_sql_instances: writearm-brain:us-central1:writearm-brain
+  cloud_sql_instances: writearmai:us-central1:wirearm-db
 
 # Remove this block entirely for flex env
 # automatic_scaling:
