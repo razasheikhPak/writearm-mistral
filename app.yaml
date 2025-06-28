@@ -3,8 +3,7 @@ env: flex
 
 # entrypoint: gunicorn -b :$PORT main:app --timeout 180
 runtime_config:
-  docker:
-    image: gcr.io/writearmai/writearm-app
+  docker: gcr.io/writearmai/writearm-app
 
 env_variables:
   DB_USER: "matrix"
