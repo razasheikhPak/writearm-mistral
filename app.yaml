@@ -9,19 +9,23 @@ env_variables:
   DB_NAME: "matrix"
   DB_HOST: "/cloudsql/writearm-brain:us-central1:writearm-brain"
   INSTANCE_CONNECTION_NAME: "writearm-brain:us-central1:writearm-brain"
-  FLASK_SECRET_KEY: "your-secret-key-here"
-  OPENAI_API_KEY: "your-openai-key-here"
+  FLASK_SECRET_KEY: "your-secret-key"
+  OPENAI_API_KEY: "your-api-key"
   APP_USER: "GITM"
   APP_PASS: "GITM123"
 
 beta_settings:
   cloud_sql_instances: writearm-brain:us-central1:writearm-brain
 
+# Remove this block entirely for flex env
+# automatic_scaling:
+#   min_instances: 1
+#   max_instances: 2
+#   min_idle_instances: 0
+#   max_idle_instances: 1
+
+# Optional: For basic scaling control
 resources:
   cpu: 1
   memory_gb: 1
   disk_size_gb: 10
-
-automatic_scaling:
-  min_num_instances: 1
-  max_num_instances: 2
