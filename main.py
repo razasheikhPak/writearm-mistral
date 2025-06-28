@@ -32,6 +32,7 @@ from google.oauth2 import service_account
 from fastapi import FastAPI, Request
 from core.mistral_engine import call_mistral
 
+
 # from dotenv import load_dotenv
 # load_dotenv()
 
