@@ -1,0 +1,27 @@
+module: DecisionTracker
+status: active
+version: 1.0
+
+track:
+  - user decision inputs
+  - context (tone, timing, friction level)
+  - triggered modules
+  - post-decision emotional signal
+  - follow-up actions or regrets
+
+model:
+  - assign Decision ID
+  - cluster similar decisions
+  - evaluate decision impact
+  - offer pattern suggestions
+
+override_condition:
+  - if decision matches ≥3 prior regret patterns
+  - if timing or tone indicates rushed logic
+  - if module contradiction is detected
+
+example_intervention: |
+  "This matches Decision #071 – High-confidence / Low-depth reversal pattern.
+  84% likelihood of regret within 48 hours. Recommend waiting or mapping scenario again."
+
+memory_path: /memory/decision_journal.json

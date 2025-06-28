@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | WriteArm</title>
+  <link rel="icon" href="/static/writearm-logo.png">
+
+  <!-- Font Setup -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --midnight-blue: #1A2931;
+      --sky-blue: #90EDFF;
+      --light-bg: #f8f8ff;
+      --font-sans: 'acumin-pro', sans-serif;
+      --font-serif: 'freight-big-pro', serif;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .banner-container {
+      margin-bottom: 32px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .logo-banner {
+      max-width: 600px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 18px;
+      box-shadow: 0 2px 22px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.9s ease;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--midnight-blue);
+      margin-bottom: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 15px;
+      background-color: #fafafa;
+    }
+
+    button {
+      padding: 14px 16px;
+      background-color: #fff;
+      /* border-radius: 999px; */
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      border: 0.2rem solid #FF5C7A;
+      color: var(--midnight-blue);
+      /* font-family: 'Inter', sans-serif; */
+      font-weight: 600;
+      font-size: 15px;
+      /* border: none; */
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #FF5C7A;
+      color: #fff;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner-container">
+    <img src="/static/writearm-banner.png" alt="WriteArm Banner" class="logo-banner">
+  </div>
+
+  <div class="login-container">
+    <h2>Login to WriteArm</h2>
+    {% if error %}
+      <div class="error-message">{{ error }}</div>
+    {% endif %}
+    <form method="POST">
+      <input name="username" type="text" placeholder="Username" required>
+      <input name="password" type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+</body>
+</html>

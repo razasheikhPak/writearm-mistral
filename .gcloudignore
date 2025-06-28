@@ -1,0 +1,22 @@
+﻿# Exclude virtual environments
+venv/
+env/
+.venv/
+ENV/
+.env
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git and editor files
+.git/
+.gcloudignore
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
