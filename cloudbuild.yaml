@@ -13,3 +13,6 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/writearm-app'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
