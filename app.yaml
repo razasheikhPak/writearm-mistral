@@ -1,7 +1,6 @@
 runtime: custom
 env: flex
 
-
 entrypoint: gunicorn -b :$PORT main:app --timeout 180
 
 env_variables:
@@ -10,18 +9,19 @@ env_variables:
   DB_NAME: "matrix"
   DB_HOST: "/cloudsql/writearm-brain:us-central1:writearm-brain"
   INSTANCE_CONNECTION_NAME: "writearm-brain:us-central1:writearm-brain"
-  FLASK_SECRET_KEY: "1e84ea6d397fe8953ca61c4ce7de31aa5d248dc33c331bdc4e6c26ac6e7ef6f0"
-  OPENAI_API_KEY: "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"
-  APP_USER: 'GITM'
-  APP_PASS: 'GITM123'
+  FLASK_SECRET_KEY: "your-secret-key-here"
+  OPENAI_API_KEY: "your-openai-key-here"
+  APP_USER: "GITM"
+  APP_PASS: "GITM123"
 
 beta_settings:
   cloud_sql_instances: writearm-brain:us-central1:writearm-brain
 
-automatic_scaling:
-  min_instances: 1
-  max_instances: 2
-  min_idle_instances: 0
-  max_idle_instances: 1
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
 
-instance_class: F1
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
