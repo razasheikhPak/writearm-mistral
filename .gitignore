@@ -3,7 +3,6 @@ venv/
 ai/
 .writearm-brain-64148b0e5d81.json
 .gitm-llm-222752841c92.json
-.app.yaml
+
 writearm-brain-64148b0e5d81.json
 gitm-llm-222752841c92.json
-app.yaml
