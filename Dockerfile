@@ -12,4 +12,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Start the app via gunicorn
-CMD ["gunicorn", "-b", ":$PORT", "main:app", "--timeout", "180"]
+# CMD ["gunicorn", "-b", ":$PORT", "main:app", "--timeout", "180"]
+CMD ["sh", "-c", "gunicorn -b :$PORT main:app --timeout 600"]
