@@ -20,3 +20,4 @@ __pycache__/
 # System files
 .DS_Store
 Thumbs.db
+cloudbuild/
