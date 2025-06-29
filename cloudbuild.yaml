@@ -1,18 +1,18 @@
 steps:
   # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/writearm-app', '.']
+    args: ['build', '-t', 'gcr.io/writearm-brain/writearm-app', '.']
 
   # Step 2: Push Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/writearm-app']
+    args: ['push', 'gcr.io/writearm-brain/writearm-app']
 
   # Step 3: Deploy to App Engine
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--quiet']
+    args: ['app', 'deploy']  # Removed --quiet for verbose output
 
 images:
-  - 'gcr.io/$PROJECT_ID/writearm-app'
+  - 'gcr.io/writearm-brain/writearm-app'
 
 options:
   logging: CLOUD_LOGGING_ONLY
