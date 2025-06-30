@@ -1,3 +1,4 @@
+service: staging  # 👈 Required for separate URL
 runtime: custom
 env: flex
 
