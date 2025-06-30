@@ -219,8 +219,9 @@ def make_session_permanent():
 
 @app.before_request
 def enforce_https():
-    if not request.is_secure and not app.debug:
+    if not app.debug and request.headers.get('X-Forwarded-Proto', 'http') != 'https':
         return redirect(request.url.replace("http://", "https://", 1), code=301)
+
 
 
 # --- Decorators ---
