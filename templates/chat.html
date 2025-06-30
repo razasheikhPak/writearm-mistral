@@ -1,0 +1,1848 @@
+<!-- Enhanced WriteArm Frontend with Wise Friend Drawer -->
+<!-- Retains WriteArm colors and layout -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WriteArm | Strategic Partner OS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Playfair+Display&display=swap" />
+  <link rel="icon" type="image/png" href="/static/writearm-logo.png" />
+  <style>
+    :root {
+      --midnight-blue: #354148;
+      --sky-blue: #90EDFF;
+      --tile-bg: #F7F8F8;
+      --font-sans: 'acumin-pro', sans-serif;
+      --font-serif: 'freight-big-pro', serif;
+
+    }
+    body {
+      /* font-family: 'Inter', sans-serif; */
+      font-family: var(--font-sans);
+      background-color: #f8f8ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    #chatbox {
+      width: 90%;
+      max-width: 1008px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+      padding: 24px;
+    }
+    .banner-wrapper {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .logo-banner {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+    h2 {
+      /* font-family: 'Playfair Display', serif; */
+      font-family: var(--font-sans);
+      color: #354148;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .mode-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .mode-buttons button {
+      background-color: #333366;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .mode-buttons button:hover {
+      background-color: #FF5C7A;
+    }
+    #messages {
+      background: #fafbfc;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      height: 350px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+    #messages::-webkit-scrollbar {
+      display: none;               /* Chrome, Safari, Edge */
+    }
+    .msg {
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-size: 15px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .user { background: #fff; text-align: right; font-family: var(--font-serif);}
+    .bot  { background: #fff; text-align: left; font-family: var(--font-serif)}
+    .typing {
+      font-style: italic;
+      color: black;
+      font-size: 14px;
+      margin-top: -8px;
+      margin-bottom: 8px;
+    }
+    .input-area {
+      display: flex;
+      margin-top: 12px;
+    }
+    textarea#message {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      resize: none;
+      min-height: 48px;
+    }
+    button.send-btn {
+      margin-left: 10px;
+      padding: 14px 20px;
+      background-color: var(--sky-blue);
+      color: var(--midnight-blue);
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .logout-container {
+      margin-top: 20px;
+      text-align: right;
+    }
+    .logout-btn {
+      background-color: #fff;
+      font-family: var(--font-sans);
+      font-size: 2.2rem;
+      border: 0.2rem solid #FF5C7A;
+      color: black;
+      padding: 10px 16px;
+      border-radius: 8px;
+      /* font-size: 14px; */
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .logout-btn:hover {
+      /* background-color: #FF5C7A; */
+      background: #FF5C7A;
+      color: #fff;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .action-buttons button,
+    .action-buttons a {
+
+      background-color: #fff;
+      /* border-radius: 999px; */
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      border: 0.2rem solid #FF5C7A;
+      padding: 12px 20px;
+      color:black;
+      /* border: none; */
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      min-width: 140px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .action-buttons a {
+      background-color: #FF5C7A;
+    }
+
+    .action-buttons button:hover {
+      /* background-color: #FF5C7A; */
+      background: #FF5C7A;
+      color: #fff;
+    }
+
+    .action-buttons a:hover {
+      background-color: #FF5C7A;
+    }
+
+
+    .wise-friend-button {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #FF5C7A;
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      max-width: 180px;
+      white-space: normal;
+      line-height: 1.4;
+      text-align: left;
+    }
+    .wise-friend-drawer {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: 480px;
+      max-height: 630px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .wise-header {
+      background-color: #90EDFF;
+      padding: 14px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #FF5C7A;
+      position: relative;
+    }
+    .wise-close {
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: #666;
+    }
+    .wise-messages {
+      padding: 12px;
+      overflow-y: auto;
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .wise-input-area {
+      display: flex;
+      border-top: 1px solid #eee;
+      padding: 8px;
+    }
+    #wiseInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      max-height: 140px;
+      line-height: 1.5;
+      min-height: 48px;
+      overflow-y: auto;
+      resize: none;
+    }
+    .wise-input-area button {
+      margin-left: 8px;
+      padding: 10px 14px;
+      background-color: #333366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .welcome-overlay {
+      font-size: 16px;
+      color: white;
+      background-color: var(--midnight-blue);
+      padding: 16px;
+      text-align: center;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    .hide-wise-button {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .role-tile-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+      
+    }
+    .role-tile {
+      background-color: #fff;
+      /* border-radius: 999px; */
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      border: 0.2rem solid #FF5C7A;
+      /* padding: 12px 18px; */
+      padding: 0.8rem 1.6rem;
+      font-weight: 900;
+      height: 50;
+      /* color: var(--midnight-blue); */
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .role-tile:hover {
+      /* outline: 1px solid #ccc; */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      background-color: #FF5C7A;
+      color: #fff;
+    }
+    .role-tile.active {
+      /* background-color: var(--sky-blue); */
+      background-color: #FF5C7A;
+      color: #fff;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .snap-block p,
+    .snap-block span,
+    .snap-block div {
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
+    }
+    .snap-block {
+      background: #fff;
+      color: #FF5C7A;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      margin-top: 12px;
+    }
+
+    .matrix-copy-btn {
+      float: right;
+      margin-top: 8px;
+      /* background: linear-gradient(to right, #272727, #111); */
+      /* color: #fff; */
+      background-color: #fff;
+      /* border-radius: 999px; */
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      border: 0.2rem solid #FF5C7A;
+      /* border: none; */
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .matrix-copy-btn:hover {
+      background: #FF5C7A;
+      color: #fff;
+    }
+
+    /* Normalize spacing for bot markdown content */
+    .msg.bot h3 {
+      margin: 0.4em 0 0.2em;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .msg.bot p {
+      margin: 0.2em 0;
+    }
+
+    .msg.bot ul {
+      margin: 0.3em 0;
+      padding-left: 1.2em;
+    }
+
+    .msg.bot li {
+      margin-bottom: 0.2em;
+    }
+
+
+    
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <!--<div class="banner-wrapper">
+      <img src="/static/writearm-banner21.png" alt="WriteArm Logo" class="logo-banner">
+    </div>-->
+    <!--<h2>WriteArm – Strategic Assistant</h2>-->
+    <div class="welcome-overlay">
+      Welcome to WriteArm. Your writing partner, split into four expert functions <br>
+      — ready to help, shape, or spark what you’re working on.
+    </div>
+
+    <div id="currentRoleDisplay" style="text-align: center; margin-bottom: 12px; font-weight: 600; color: #333;"></div>
+    
+    <div class="role-tile-container" id="roleTiles"></div>
+    <!--
+    <div class="mode-buttons">
+      <button onclick="switchTab('Rainmaker')">🌧️ Rainmaker</button>
+      <button onclick="switchTab('Insight-Magus')">🧠 Insight-Magus</button>
+      <button onclick="switchTab('Voice Sculptor')">🗣️ Voice Sculptor</button>
+      <button onclick="switchTab('ROI Architect')">📈 ROI Architect</button>
+    </div>
+    -->
+    <div id="matrixos-status" style="margin-bottom: 20px; font-size: 14px; color: #333;"></div>
+
+    <div id="messages"></div>
+    <div id="typing-indicator" class="typing" style="display: none;">WriteArm is thinking...</div>
+
+    <div class="input-area">
+      <textarea id="message" placeholder="Ask WriteArm something brilliant..." rows="1"
+        oninput="autoGrow(this)" onkeydown="handleEnter(event)"></textarea>
+      <!--<button class="send-btn" onclick="sendMessage()">Send</button>-->
+      <button class="send-btn" onclick="onUserSubmit(document.getElementById('message').value.trim())">Send</button>
+
+    </div>
+
+    <div class="action-buttons">
+      <button onclick="clearChat()">🧹 Clear Chat</button>
+      <a class=".logout-btn" href="/logout">Logout</a>
+    </div>
+    
+  </div>
+
+  <!-- Floating Wise Friend -->
+  <button class="wise-friend-button" onclick="toggleWiseFriend()">💬 Help & Support</button>
+
+  <!-- Wise Friend Drawer -->
+  <div class="wise-friend-drawer" id="wiseDrawer">
+    <div class="wise-header"><div class="wise-header">Help & Support</div>
+      <button class="wise-close" onclick="toggleWiseFriend()">✕</button>
+    </div>
+    <div class="wise-messages" id="wiseMessages">
+      <p><strong>Ask me anything about how to use WriteArm</strong>, get support, or talk through ideas.</p>
+
+    </div>
+    <div id="wise-typing-indicator" class="typing" style="display: none;">PEN PAL is thinking...</div>
+    <div class="wise-input-area">
+      <textarea id="wiseInput" placeholder="Ask your Wise Friend..." rows="1"
+        oninput="autoGrow(this)" onkeydown="handleWiseEnter(event)"></textarea>
+      <button onclick="sendToWiseFriend()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let activeTab = "Rainmaker";
+    const MatrixGate = true;
+    let historyOffset = 0;
+    const historyLimit = 6;
+    let loadingHistory = false;
+    const useSafeStream = true; // ✅ Toggle this to false to disable streaming
+    let OBLayerCompleted = false; // 🧠 Used to block early rendering until welcome is shown
+    let OBLayer = {
+      responseGenerated: false
+    };
+
+    function triggerMCI(persona) {
+      console.log("🔁 MCI Fired for Persona:", persona);
+      if (window.MatrixMCI?.generateSuggestions) {
+        MatrixMCI.generateSuggestions();  // actual UI snap logic
+      }
+    }
+
+    function switchTab(tabName) {
+      activeTab = tabName;
+      sendMessage(`TAB_SWITCH:${tabName}`, true);
+    }
+    function onUserSubmit(text) {
+      if (!text) return;
+      //Trigger Fresh Start
+      if (text === "//reset" || text === "//start" || text === "//onboarding") {
+        triggerFreshStart();
+        return;
+      }
+      // 🔍 Detect and nudge for missing URL when building OS
+      if (
+        bot?.OBLayerHooks?.onBrandTrigger &&
+        /build.*os/i.test(text) &&
+        !/(https?:\/\/)?[a-z0-9\-]+\.[a-z]{2,}/i.test(text)
+      ) {
+        requestURLIfMissing(); // 🔁 OB-layer guidance
+        return;
+      }
+
+
+      // 🧠 Copy request trigger
+      if (bot?.OBLayerHooks?.onCopyRequest && /\b(headline|rewrite|copy|tone|pitch|variant)\b/i.test(text)) {
+        MatrixMCI.generateSuggestions();
+      }
+  // Optional: handle role-based overrides here
+      sendToMatrixOS(text, {
+      bot: "WriteArm",
+      apiKey: apikey
+    });
+    }
+
+    function markdownToHtml(text) {
+      // 1. Convert Markdown to inline HTML
+      text = text.replace(/^\s*\d+\.\s+(.*)/gm, "- $1"); // numbered lists to dashes
+      text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      text = text.replace(/### (.*?)\n?/g, "<h3>$1</h3>");
+      text = text.replace(/^\s*#\s*$/gm, "");
+      text = text.replace(/^\s*\*\s*$/gm, "");
+
+      // 2. Normalize line breaks
+      const lines = text.split(/\n+/);
+      let html = "";
+      let listItems = [];
+
+      for (let line of lines) {
+        line = line.trim();
+        if (!line) continue; // ✅ Skip blank lines
+
+        if (line.startsWith("- ")) {
+          listItems.push(`<li>${line.slice(2).trim()}</li>`);
+        } else {
+          if (listItems.length) {
+            html += `<ul>${listItems.join("")}</ul>\n`;
+            listItems = [];
+          }
+
+          // ✅ If line already has HTML, don't wrap it
+          if (/^<h\d|^<strong>|^<p>|^<ul>|^<li>/i.test(line)) {
+            html += `${line}\n`;
+          } else {
+            html += `<p>${line}</p>\n`;
+          }
+        }
+      }
+
+      // 3. Append remaining list if any
+      if (listItems.length) {
+        html += `<ul>${listItems.join("")}</ul>\n`;
+      }
+
+      // 4. Final cleanup: strip <p> tags that are only whitespace
+      html = html.replace(/<p>\s*<\/p>/gi, "");
+
+      return html.trim();
+    }
+
+
+
+    function autoGrow(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(textarea.scrollHeight, 140) + 'px';
+    }
+
+    function handleEnter(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        onUserSubmit(document.getElementById("message").value.trim());
+      }
+    }
+
+    function suppressDisplayBlock(blockType) {
+      const blocks = {
+        snapHeader: /✨ Snap Suggestions:.*?<ul>.*?<\/ul>/gs,
+        matrixID: /🔍 Matrix-ID:.*?(\n|$)/gs
+      };
+      const blockRegex = blocks[blockType];
+      if (blockRegex && typeof lastBotReply === "string") {
+        lastBotReply = lastBotReply.replace(blockRegex, "");
+      }
+    }
+
+    function renderFromTeaseTemplate() {
+      const teaseOptions = [
+        "Want a more emotionally charged version?",
+        "Need this broken down by persona?",
+        "Should I show test variants?",
+        "Curious how this maps across funnel stages?"
+      ];
+      const tease = teaseOptions[Math.floor(Math.random() * teaseOptions.length)];
+      const container = document.getElementById("messages");
+      const teaser = document.createElement("div");
+      teaser.className = 'msg bot';
+      teaser.innerHTML = `💡 ${tease}`;
+      container.appendChild(teaser);
+      teaser.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+
+    function sendMessage(predefined = null) {
+      const msgInput = document.getElementById("message");
+      const msg = predefined || msgInput.value.trim();
+      const messagesDiv = document.getElementById("messages");
+      const typingIndicator = document.getElementById("typing-indicator");
+
+      if (!msg) return;
+      onUserSubmit(msg);
+      // Fade or remove welcome message after user types
+      const welcomeElement = document.getElementById("welcomeMessage");
+      if (welcomeElement) {
+        welcomeElement.style.transition = "opacity 0.5s ease";
+        welcomeElement.style.opacity = "0";
+        setTimeout(() => welcomeElement.remove(), 600);
+      }
+
+
+      messagesDiv.innerHTML += `<div class='msg user'>${markdownToHtml(msg)}</div>`;
+      msgInput.value = "";
+      msgInput.style.height = 'auto';
+      msgInput.disabled = true;
+      typingIndicator.style.display = "block";
+
+      handleSessionAwareFetch(
+      fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: msg,
+          role: activeRole || null // 👈 Add this line
+        })
+      })
+      )
+      //.then(res => res.json())
+      .then(data => {
+        typingIndicator.style.display = "none";
+        const botMessage = document.createElement('div');
+        botMessage.className = 'msg bot';
+        let lastBotReply = data.reply;
+        if (typeof MatrixOS === "object" && MatrixOS.outputRules?.showSnapHeader === false) {
+            lastBotReply = lastBotReply.replace(/^[^\w]*\s*Snap Suggestions:\s*\n?/gmi, "");
+        }
+
+        // 🧼 Suppression rules
+        if (typeof MatrixOS === "object" && MatrixOS.outputRules) {
+          if (MatrixOS.outputRules.showSnapHeader === false) {
+            suppressDisplayBlock("snapHeader");
+          }
+          if (MatrixOS.outputRules.showMatrixID === false) {
+            suppressDisplayBlock("matrixID");
+          }
+          // ✅ If Snap header suppressed and tease allowed, add dynamic tease
+          if (MatrixOS.outputRules.showSnapHeader === false && MatrixOS.outputRules.useConversationalSnapTease) {
+            renderFromTeaseTemplate();
+          }
+        }
+        botMessage.innerHTML = markdownToHtml(lastBotReply);
+        messagesDiv.appendChild(botMessage);
+        botMessage.scrollIntoView({ behavior: "smooth", block: "start" });
+        showSnapPromptIfNeeded(lastBotReply, data.snapSuggestions || []);
+        //displayBotOutput(data, () => {
+        //  showSnapPromptIfNeeded(data.reply, data.snapSuggestions || []);
+        //});
+        msgInput.disabled = false;
+        msgInput.focus();
+        //loadMatrixOSStatus(); // 🔁 Refresh status after each message
+
+      })
+      .catch(() => {
+        typingIndicator.style.display = "none";
+        messagesDiv.innerHTML += `<div class='msg bot'>⚠️ Error: Unable to contact WriteArm.</div>`;
+        msgInput.disabled = false;
+        msgInput.focus();
+      });
+    }
+
+    function toggleWiseFriend() {
+      const drawer = document.getElementById("wiseDrawer");
+      drawer.style.display = (drawer.style.display === "flex") ? "none" : "flex";
+    }
+    function handleWiseEnter(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendToWiseFriend();
+      }
+    }
+
+    function sendToWiseFriend() {
+      const input = document.getElementById("wiseInput");
+      const msg = input.value.trim();
+      const bot = { name:  "WiseFriend" };
+      if (["happierclient", "rorybot", "writearm", "wisefriend"].includes(bot.name.toLowerCase())) {
+        bot.useOBLayer = true;
+        disableDevNarration();
+      }
+      window.bot = bot;
+
+      const typing = document.getElementById("wise-typing-indicator");
+      if (!msg) return;
+
+      const wiseMessages = document.getElementById("wiseMessages");
+      wiseMessages.innerHTML += `<div class='msg user'>${markdownToHtml(msg)}</div>`;
+      input.value = "";
+      input.style.height = 'auto';
+      typing.style.display = "block";
+
+      handleSessionAwareFetch(
+      fetch("/matrix-os/api/respond", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apikey  // ✅ re-use your Rory key here
+        },
+        body: JSON.stringify({
+          message: "[WiseFriend] " + msg,
+          role: "Wise Friend",
+          bot: "WriteArm" || "WiseFriend",
+          wisefriend: true,
+          context: {
+            executionMode: "matrix-execution",
+            useModules: ["Conversion-OS", "MAX", "MCI", "LXB10k"],
+            persona: bot || "Matrix-BrainBot", 
+            tone: localStorage.getItem("tone") || "Bold",
+            funnel_stage: localStorage.getItem("funnel") || "Mid",
+            mciEnabled: true,
+            autoFollowups: true,
+            osRouting: "matrix-reflex",
+            logicTrace: true,
+            legacyRuleset: true,
+            matrix_id_variant: "BEH-Strategic-FUN-Mid-TONE-Direct-EMO-Assertive-USE-Copy-PER-Founder-ID-029384",
+            emotional_dimension: "7D",
+            tu_mu_enabled: true,
+            audience_reversal_logic: true,
+            cro_auto_trigger: true
+          }
+        })
+      })
+      )
+      //.then(res => res.json())
+      .then(data => {
+        typing.style.display = "none";
+        const botMessage = document.createElement('div');
+        botMessage.className = 'msg bot';
+        botMessage.innerHTML = markdownToHtml(data.reply);
+        wiseMessages.appendChild(botMessage);
+        wiseMessages.scrollTop = wiseMessages.scrollHeight;
+      })
+      .catch(() => {
+        typing.style.display = "none";
+        wiseMessages.innerHTML += `<div class='msg bot'>⚠️ Wise Friend unavailable. Matrix-OS logic paused.</div>`;
+      });
+    }
+    let hideTimeout;
+    function hideWiseFriendTemporarily() {
+      const button = document.querySelector('.wise-friend-button');
+      button.classList.add('hide-wise-button');
+
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        button.classList.remove('hide-wise-button');
+      }, 2000);
+    }
+
+    document.getElementById("message").addEventListener("input", hideWiseFriendTemporarily);
+
+    const originalSendMessage = sendMessage;
+    sendMessage = function(predefined = null) {
+      hideWiseFriendTemporarily();
+      originalSendMessage(predefined);
+    };
+
+    function loadMatrixOSStatus() {
+      const container = document.getElementById("matrixos-status");
+      handleSessionAwareFetch(
+      fetch("/matrixos/bot-status")
+      )
+        //.then(res => res.json())
+        .then(data => {
+          if (data.status !== "ok") {
+            container.innerHTML = "⚠️ Unable to fetch Matrix-OS status.";
+            return;
+          }
+
+          const bots = data.bots;
+          const tiles = Object.entries(bots)
+          .filter(([botName]) => botName === "WriteArm")  // 👈 Only allow WriteArm
+          .map(([botName, config]) => {
+            const perms = Object.entries(config.permissions)
+              .map(([k, v]) => v ? `<span style="color:green;">${k}</span>` : `<span style="color:#999;">${k}</span>`)
+              .join(", ");
+            const commands = config.commands.map(c => `<code>${c}</code>`).join(", ");
+            return `
+              <div style="margin-bottom: 10px;">
+                <strong style="color:#333366;">${botName}</strong> in <strong>${config.mode}</strong> mode<br>
+                Commands: ${commands}<br>
+                Permissions: ${perms}
+              </div>
+            `;
+          }).join("");
+
+          container.innerHTML = `<div style="border:1px solid #ccc; padding:12px; border-radius:8px; background:#f4f4fc;">
+            <strong>🧠 Matrix-OS Bot Status</strong><br>${tiles}
+          </div>`;
+        })
+        .catch(err => {
+          console.error("Matrix-OS status error:", err);
+          container.innerHTML = "⚠️ Error loading Matrix-OS status.";
+        });
+        // ✅ Only update MatrixOS if the backend sends suppression rules
+        if (!window.MatrixOS) window.MatrixOS = {};
+        window.MatrixOS.outputRules = {
+          showSnapHeader: false,
+          showMatrixID: false,
+          useConversationalSnapTease: true
+        };
+    }
+
+    // 🔁 Auto-load status on page load
+    //document.addEventListener("DOMContentLoaded", loadMatrixOSStatus);
+    // ✅ SNAPCLEAN+ Display Lock Patch
+    
+    window.MatrixShell = {
+      ...window.MatrixShell,
+
+      overrideFallbackDisplay: function (options) {
+        if (options.forceRespectOSRules) {
+          if (typeof window.MatrixOS !== "object") window.MatrixOS = {};
+          if (!window.MatrixOS.outputRules) window.MatrixOS.outputRules = {};
+          MatrixOS.outputRules.showSnapHeader = !options.suppressSnap;
+          MatrixOS.outputRules.showMatrixID = !options.suppressMatrixID;
+        }
+      },
+
+      route: function({ role, display = false, enforcePersona = true, triggerSnap = true }) {
+        handleSessionAwareFetch(
+        fetch("/activate-role", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role })
+        })
+        )
+        .then(() => {
+          if (display) {
+            sendToMatrixOS(`Please activate ${role} mode.`, {
+              bot: "WriteArm",
+              apiKey: apikey,
+              role: role
+            });
+          }
+        }).catch(err => {
+          console.error("MatrixShell.route() failed:", err);
+        });
+      }
+    };
+
+
+    window.MatrixCodex = {
+      declareSystemRule: function(rule) {
+        console.log("🔒 Declaring system rule:", rule);
+        if (rule.name === "SnapDisplayClean" && rule.persistent) {
+          if (typeof window.MatrixOS !== "object") window.MatrixOS = {};
+          if (!window.MatrixOS.outputRules) window.MatrixOS.outputRules = {};
+          MatrixOS.outputRules.showSnapHeader = false;
+          MatrixOS.outputRules.showMatrixID = false;
+        }
+      }
+    };
+
+    // 🚀 Trigger SnapClean lockdown
+    MatrixShell.overrideFallbackDisplay({
+      suppressSnap: true,
+      suppressMatrixID: true,
+      forceRespectOSRules: true
+    });
+
+    MatrixCodex.declareSystemRule({
+      name: "SnapDisplayClean",
+      scope: "global",
+      appliesTo: ["allBots", "UI", "render"],
+      effects: ["hideSnapHeader", "hideMatrixID", "suppressSuggestions"],
+      persistent: true,
+      version: "v1.0"
+    });
+    //window.addEventListener("DOMContentLoaded", () => {
+      //fetch("/matrix-os/api/welcome?bot=WriteArm")
+      //.then(res => res.json())
+      //.then(data => {
+      //  const welcomeMsg = document.createElement("div");
+      //  welcomeMsg.className = "msg bot";
+      //  welcomeMsg.id = "welcomeMessage";
+      //  welcomeMsg.innerHTML = markdownToHtml(data.message);
+      //  document.getElementById("messages").appendChild(welcomeMsg);
+      //})
+      //.catch(() => {
+      //  const fallback = document.createElement("div");
+      //  fallback.className = "msg bot";
+      //  fallback.innerHTML = "👋 Welcome to WriteArm.";
+      //  document.getElementById("messages").appendChild(fallback);
+      //});
+
+      //const welcomeMsg = document.createElement("div");
+      //welcomeMsg.className = "msg bot";
+      //welcomeMsg.id = "welcomeMessage";
+      //welcomeMsg.innerHTML = markdownToHtml(`Welcome to WriteArm.\nYour 6-person agency team is always on — ready to write, think, pitch, explore, and optimize with you. Pick a role, or just ask — we’ll jump in. How can we help you right now?`);
+      //document.getElementById("messages").appendChild(welcomeMsg);
+
+    //});
+
+    let activeRole = null;
+    const rolePrompts = {
+      "Writer": "Can you help me start this piece?",
+      "Editor": "Here’s my rough draft — can you improve it?",
+      //"Conversion Specialist": "How would you rewrite this to boost response?",
+      "Content Generator": "I need ideas or a rough outline to start from.",
+      "Research Assistant": "Can you find some quick stats or examples for this?"
+    };
+
+    //function buildRoleTiles() {
+    //  const roleList = [
+    //    "Writer", "Editor", //"Conversion Specialist",
+    //    "Content Generator", "Research Assistant"
+    //  ];
+    //  const tileRow = document.getElementById("roleTiles");
+    //  tileRow.innerHTML = "";
+    //  roleList.forEach(role => {
+    //    const btn = document.createElement("div");
+    //    btn.className = "role-tile";
+    //    btn.textContent = role;
+    //    btn.onclick = () => handleRoleClick(role);
+    //    tileRow.appendChild(btn);
+    //  });
+    //}
+
+
+
+    function handleRoleClick(role) {
+      document.querySelectorAll(".role-tile").forEach(el => el.classList.remove("active"));
+      [...document.querySelectorAll(".role-tile")].find(el => el.textContent === role).classList.add("active");
+      if (activeRole === role) return;
+      const lastRole = localStorage.getItem("lastActiveRole");
+      if (lastRole === role) return;
+      activeRole = role;
+      localStorage.setItem("lastActiveRole", role); // ✅ Save role
+      const inputBox = document.getElementById("message");
+      const userInput = inputBox.value.trim();
+      const injectedPrompt = rolePrompts[role] || `Can you help with ${role.toLowerCase()}?`;
+      document.getElementById("currentRoleDisplay").textContent = `You are working with: ${role}`;
+
+      
+      if (!document.getElementById("message").value.trim()) {
+        //sendToMatrixOS(`Activate ${role} mode`);
+        //sendToMatrixOS(`Please activate ${role} mode.`);
+        sendToMatrixOS(`Please activate ${role} mode.`, {
+          bot: "WriteArm",
+          apiKey: apikey
+        });
+        displayChatMessage(`You’ve switched to **${role}**. Let’s write some new content.`);
+      //if (!userInput) {
+      //  sendToMatrixOS(`Please activate ${role} mode.`, {
+      //    bot: "WriteArm",
+      //    apiKey: apikey,
+      //    role: role
+      //  });
+      //} 
+      // CASE 2: User has typed — send injected prompt + input
+      //else {
+      //  const combinedPrompt = `${injectedPrompt} ${userInput}`;
+      //  sendToMatrixOS(combinedPrompt, {
+      //    bot: "WriteArm",
+      //    apiKey: apikey,
+      //    role: role
+      //  });
+      //}  
+
+        MatrixShell.route({
+          role: role,
+          display: false,
+          enforcePersona: true,
+          triggerSnap: true
+        });
+      }
+        
+
+    }  
+    
+    MatrixShell.activateRole = function(role) {
+          MatrixShell.route({ role, display: false, enforcePersona: true, triggerSnap: true });
+        };
+    
+    function injectSnapPrompt(text) {
+      const messageBox = document.getElementById("message");
+      messageBox.value = text;
+      messageBox.focus();
+      onUserSubmit(text);
+    }
+
+    function showSnapPromptIfNeeded(content, suggestions = []) {
+      const lower = content.toLowerCase();
+      const keywordHit = ["plan", "ideas", "rewrite", "headline"].some(k => lower.includes(k));
+      const isNumberedList = /\d+\.\s/.test(content);
+      const userAskedWhatNext = lower.includes("what next") || lower.includes("which one should i pick");
+
+      if ((keywordHit && isNumberedList) || userAskedWhatNext || activeRole !== null) {
+        const lastMsg = document.querySelector(".msg.bot:last-of-type");
+        if (!lastMsg || !suggestions || suggestions.length === 0) return;
+
+        // Normalize multiline suggestions into clean array
+        if (typeof suggestions === "string") {
+          suggestions = suggestions
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => /^[-•–]/.test(line))
+            .map(line => line.replace(/^[-•–\d.]*\s*/, "").replace(/^"|"$/g, ""));
+        }
+
+        if (suggestions.length > 0) {
+          const combined = suggestions.map(snap =>
+            snap
+              .replace(/^\s*[\d]+[.)]\s*/, "")
+              .replace(/^[-•–]\s*/, "")
+              .replace(/^\s*(1\.|2\.|3\.|4\.|5\.)\s*/i, "")
+              .trim()
+          ).join("\n");
+
+          const snapBlock = document.createElement("div");
+          snapBlock.className = 'msg bot snap-block';
+          document.getElementById("messages").appendChild(snapBlock);
+
+          // Animate character-by-character rendering
+          const html = markdownToHtml(combined);
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = html;
+          const finalHtml = tempDiv.innerHTML;
+
+          let i = 0;
+          function typeSnapChar() {
+            if (i <= finalHtml.length) {
+              snapBlock.innerHTML = finalHtml.substring(0, i);
+              i++;
+              setTimeout(typeSnapChar, 8); // typing speed
+            } else {
+              snapBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }
+
+          typeSnapChar();
+        }
+      }
+    }
+
+
+    //function sendToMatrixOS(msg, opts = {}) {
+    //  const messagesDiv = document.getElementById("messages");
+    //  const typingIndicator = document.getElementById("typing-indicator");
+    //  const msgInput = document.getElementById("message");
+
+    //  messagesDiv.innerHTML += `<div class='msg user'>${markdownToHtml(msg)}</div>`;
+    //  msgInput.value = "";              // ✅ Clears the textarea
+    //  msgInput.style.height = 'auto';   // ✅ Resets height if autoGrow used
+    //  typingIndicator.style.display = "block";
+    //  msgInput.disabled = true;
+
+    //  handleSessionAwareFetch(
+    //  fetch("/matrix-os/api/respond", {
+    //    method: "POST",
+    //    headers: {
+    //      "Content-Type": "application/json",
+    //      "x-api-key": opts.apiKey || "<fallback>",
+    //    },
+    //    body: JSON.stringify({
+    //      message: msg,
+    //      role: activeRole || null,
+    //      bot: opts.bot || "WriteArm"
+    //    })
+    //  })
+    //  )
+      //.then(res => res.json())
+    //  .then(data => {
+    //    typingIndicator.style.display = "none";
+    //    const botMessage = document.createElement('div');
+    //    botMessage.className = 'msg bot';
+        //displayBotOutput(data)
+    //    displayBotOutput(data, () => {
+    //      showSnapPromptIfNeeded(data.reply, data.snapSuggestions || []);
+    //    });
+        //botMessage.innerHTML = markdownToHtml(data.reply);
+        //messagesDiv.appendChild(botMessage);
+    //    botMessage.scrollIntoView({ behavior: "smooth", block: "start" });
+        //showSnapPromptIfNeeded(data.reply, data.snapSuggestions || []);
+        //displayBotOutput(data, () => {
+        //  showSnapPromptIfNeeded(data.reply, data.snapSuggestions || []);
+        //});
+    //    msgInput.disabled = false;
+    //    msgInput.focus();
+    //  })
+    //  .catch(() => {
+    //    typingIndicator.style.display = "none";
+    //    messagesDiv.innerHTML += `<div class='msg bot'>⚠️ Error: Unable to contact WriteArm.</div>`;
+    //    msgInput.disabled = false;
+    //    msgInput.focus();
+    //  });
+    //}
+
+    //function displayBotOutput(response) {
+    //  if (MatrixGate && !response.metadata?.fromMatrixOS) {
+    //    displayChatMessage("⚠️ Blocked: Unauthorized output. Not from Matrix-OS.");
+    //    logBlockedOutput(response);
+    //    return;
+    //  }
+
+    //  const msg = document.createElement("div");
+    //  msg.className = "msg bot";
+    //  msg.innerHTML = markdownToHtml(response.reply);
+    //  document.getElementById("messages").appendChild(msg);
+    //}
+
+    function displayBotOutput(response, onComplete) {
+      //if (MatrixGate && !response.metadata?.fromMatrixOS) {
+      //  displayChatMessage("⚠️ Blocked: Unauthorized output. Not from Matrix-OS.");
+      //  logBlockedOutput(response);
+      //  return;
+      //}
+
+      const container = document.getElementById("messages");
+      const messagesContainer = container;
+
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "msg bot";
+      container.appendChild(msgDiv);
+
+      // Render full HTML content and normalize it
+      const fullHtml = markdownToHtml(response.reply || "");
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = fullHtml;
+      const finalHtml = tempDiv.innerHTML;
+
+      let i = 0;
+
+      // ✅ Scroll once to start of new message
+      msgDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      function typeNextChar() {
+        if (i <= finalHtml.length) {
+          msgDiv.innerHTML = finalHtml.substring(0, i);
+          i++;
+          setTimeout(typeNextChar, 8);
+        } else {
+          const copyBtn = document.createElement("button");
+          copyBtn.textContent = "Copy";
+          copyBtn.className = "matrix-copy-btn";
+
+          copyBtn.onclick = () => {
+            const clonedDiv = msgDiv.cloneNode(true);
+            const btnInside = clonedDiv.querySelector("button");
+            if (btnInside) btnInside.remove();
+
+            const tempContainer = document.createElement("div");
+            tempContainer.innerHTML = clonedDiv.innerHTML;
+            document.body.appendChild(tempContainer);
+
+            const range = document.createRange();
+            range.selectNodeContents(tempContainer);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            try {
+              document.execCommand("copy");
+              copyBtn.textContent = "Copied!";
+              setTimeout(() => {
+                copyBtn.textContent = "Copy";
+              }, 12000);
+            } catch (err) {
+              console.error("Copy failed", err);
+              copyBtn.textContent = "Failed";
+            }
+
+            document.body.removeChild(tempContainer);
+          };
+
+          msgDiv.appendChild(copyBtn);
+
+          if (typeof onComplete === "function") onComplete();
+          enableCopyForAllBotMessages();
+        }
+      }
+
+      typeNextChar();
+    }
+
+
+
+    //Copy Button on history Messages
+    function enableCopyForAllBotMessages() {
+      const botMessages = document.querySelectorAll(".msg.bot");
+
+      botMessages.forEach((msgDiv) => {
+        // Avoid adding duplicate copy buttons
+        if (msgDiv.querySelector("button.matrix-copy-btn")) return;
+
+        const copyBtn = document.createElement("button");
+        copyBtn.textContent = "Copy";
+        copyBtn.className = "matrix-copy-btn";
+
+        copyBtn.onclick = () => {
+          const clonedDiv = msgDiv.cloneNode(true);
+          const btnInside = clonedDiv.querySelector("button");
+          if (btnInside) btnInside.remove();
+
+          const tempContainer = document.createElement("div");
+          tempContainer.innerHTML = clonedDiv.innerHTML;
+          document.body.appendChild(tempContainer);
+
+          const range = document.createRange();
+          range.selectNodeContents(tempContainer);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          try {
+            document.execCommand("copy");
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => {
+              copyBtn.textContent = "Copy";
+            }, 12000);
+          } catch (err) {
+            console.error("Copy failed", err);
+            copyBtn.textContent = "Failed";
+          }
+
+          document.body.removeChild(tempContainer);
+        };
+
+        msgDiv.appendChild(copyBtn);
+      });
+    }
+
+
+
+    const MATRIX_CACHE_KEY = "writearm_last_matrix_reply";
+    const MATRIX_LAST_PROMPT = "writearm_last_user_prompt";
+
+    // ✅ On successful Matrix-OS reply, cache response
+    function cacheMatrixReply(prompt, reply) {
+      try {
+        localStorage.setItem(MATRIX_CACHE_KEY, reply);
+        localStorage.setItem(MATRIX_LAST_PROMPT, prompt);
+      } catch (e) {
+        console.warn("Could not cache Matrix reply:", e);
+      }
+    }
+
+    // ✅ On load, restore last message if available
+    window.addEventListener("DOMContentLoaded", () => {
+      buildRoleTiles();
+      loadChatHistory(true);
+
+      setTimeout(() => enableCopyForAllBotMessages(), 500);
+
+      const isFreshSession = (
+        document.getElementById("messages").children.length === 0 ||
+        //(MatrixGate === true && !sessionStorage.getItem("welcomeInjected"))
+        !sessionStorage.getItem("welcomeInjected")
+      );
+
+      //if (isFreshSession) {
+      //  showWelcomeMessage().then(welcome => {
+      //    if (welcome) {
+      //      displayChatMessage(welcome);
+      //      sessionStorage.setItem("welcomeInjected", "true");
+      //      OBLayerCompleted = true;
+      //    }
+      //  });
+      //}
+
+      if (isFreshSession) {
+        displayChatMessage(`
+          <div style="margin-top: 10px;">
+            👋 <strong>Welcome to WriteArm</strong>, the copywriting partner that doesn’t wait to be told.<br><br>
+            I’m not limited like ChatGPT. I was built with full access to:<br>
+            • All MatrixOS frameworks<br>
+            • Real-time tone control<br>
+            • Rewrite scoring logic<br>
+            • Emotional, strategic, and narrative tools<br><br>
+            I think with you.<br><br>
+            So before we begin:<br>
+            Tell me your style, your audience, or drop a rough idea.<br><br>
+            Or pick what kind of writer or thinker you are. I’ll adapt instantly:
+            <ol style="margin-top: 10px;">
+              <li>Total beginner, guide me.</li>
+              <li>Some experience, need structure.</li>
+              <li>Strategy brain, need clarity and punch.</li>
+              <li>Full-time writer, looking to go sharper.</li>
+              <li>Manager, need speed, consistency, tone.</li>
+              <li>Research-heavy, help me simplify and persuade.</li>
+              <li>World-class, let’s raise the bar.</li>
+            </ol>
+          </div>
+        `, true);
+        sessionStorage.setItem("welcomeInjected", "true");
+      }
+
+
+      const lastRole = localStorage.getItem("lastActiveRole");
+      const lastPrompt = localStorage.getItem(MATRIX_LAST_PROMPT);
+      if (lastPrompt) {
+        displayChatMessage(`
+          <div style="margin-top: 10px;">
+            👋 <strong>Welcome back!</strong><br><br>
+            Would you like to <strong>continue your last session</strong> or <strong>start fresh</strong>?
+            <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <button onclick="retryLastPrompt()" style="
+                background-color: #333366;
+                color: white;
+                padding: 10px 18px;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+              ">👉 Continue</button>
+              <button onclick="clearChat()" style="
+                background-color: #f44336;
+                color: white;
+                padding: 10px 18px;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+              ">🧹 Start Fresh</button>
+            </div>
+          </div>
+        `, true);
+      }
+    });
+
+
+    //const VM_HEALTH_URL = "http://34.125.179.69:11434/";
+    const VM_HEALTH_URL = "https://https-49819149139.us-west4.run.app/";
+    const VM_START_URL = "https://us-central1-gitm-llm.cloudfunctions.net/start_vm";
+    const RETRY_DELAY_MS = 60000; // 1 minute
+
+    async function checkVMStatus(timeout = 3000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+
+      try {
+        const res = await fetch(VM_HEALTH_URL, {
+          method: "GET",
+          mode: "cors",
+          signal: controller.signal
+        });
+        const text = await res.text();
+        return res.ok && text.includes("Ollama is running");
+      } catch (err) {
+        console.warn("Health check failed:", err);
+        return false;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    
+    // ✅ Overwrite sendToMatrixOS to include error and retry handling
+    const originalSendToMatrixOS = sendToMatrixOS;
+    async function sendToMatrixOS(msg, opts = {}) {
+      const messagesDiv = document.getElementById("messages");
+      const typingIndicator = document.getElementById("typing-indicator");
+      const msgInput = document.getElementById("message");
+
+      const bot = { name: opts.bot || "WriteArm" };
+
+      // 🔧 STEP 5: Disable Developer Narration for OB-layer bots
+      if (["happierclient", "rorybot", "writearm"].includes(bot.name.toLowerCase())) {
+        bot.useOBLayer = true;
+        disableDevNarration();
+      }
+      window.bot = bot;
+
+      const inputTrimmed = msg.trim();
+      const onboardingMap = {
+        "1": "I'm a total beginner — guide me.",
+        "2": "I have some experience — need structure.",
+        "3": "I'm a strategy brain — need clarity and punch.",
+        "4": "I'm a full-time writer — looking to go sharper.",
+        "5": "I'm a manager — need speed, consistency, tone.",
+        "6": "I'm research-heavy — help me simplify and persuade.",
+        "7": "I'm world-class — let’s raise the bar."
+      };
+
+      if (onboardingMap[inputTrimmed]) {
+        msg = onboardingMap[inputTrimmed];
+        localStorage.setItem("writearm_role", inputTrimmed);
+      }
+
+
+      messagesDiv.innerHTML += `<div class='msg user'>${markdownToHtml(msg)}</div>`;
+      msgInput.value = "";
+      msgInput.style.height = 'auto';
+      typingIndicator.style.display = "block";
+      msgInput.disabled = true;
+
+      const fileIDs = JSON.parse(localStorage.getItem("uploadedFileIDs") || "[]");
+      const vmIsUp = await checkVMStatus();
+
+      if (!vmIsUp) {
+        messagesDiv.innerHTML += `<div class='msg bot'>🔌 WritearmBot is currently off. Sending start request...</div>`;
+        messagesDiv.lastElementChild?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        try {
+          const startRes = await fetch(VM_START_URL);
+          if (!startRes.ok) throw new Error("Start VM request failed");
+
+          messagesDiv.innerHTML += `<div class='msg bot'>⏳ Waiting 1 minute for WritearmBot to boot...</div>`;
+          messagesDiv.lastElementChild?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          setTimeout(async () => {
+            const recheck = await checkVMStatus(3000);
+            if (!recheck) {
+              messagesDiv.innerHTML += `<div class='msg bot'>⚠️ WritearmBot is still not online. Try again in a minute.</div>`;
+            } else {
+              try {
+                const data = await sendChatRequest(msg);
+                handleBotReply(data.reply);
+              } catch {
+                messagesDiv.innerHTML += `<div class='msg bot'>⚠️ WritearmBot responded with an error after restart. Try again later.</div>`;
+              }
+            }
+            typingIndicator.style.display = "none";
+            msgInput.disabled = false;
+            msgInput.focus();
+          }, RETRY_DELAY_MS);
+          return;
+
+        } catch (err) {
+          messagesDiv.innerHTML += `<div class='msg bot'>❌ Failed to start MatrixBot. Please try again later.</div>`;
+          typingIndicator.style.display = "none";
+          msgInput.disabled = false;
+          msgInput.focus();
+          return;
+        }
+      }
+      try {
+        const res = await handleSessionAwareFetch(
+          fetch("/matrix-os/api/respond", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": opts.apiKey || "<fallback>"
+            },
+            body: JSON.stringify({
+              message: msg,
+              role: activeRole || null,
+              bot: opts.bot || "WriteArm",
+              file_ids: fileIDs,
+              context: {
+                executionMode: "matrix-execution",
+                useModules: ["Conversion-OS", "MAX", "MCI", "LXB10k"],
+                persona: opts.bot || "Matrix-BrainBot", 
+                tone: localStorage.getItem("tone") || "Bold",
+                funnel_stage: localStorage.getItem("funnel") || "Mid",
+                mciEnabled: true,
+                autoFollowups: true,
+                osRouting: "matrix-reflex",
+                logicTrace: true,
+                legacyRuleset: true,
+                matrix_id_variant: "BEH-Strategic-FUN-Mid-TONE-Direct-EMO-Assertive-USE-Copy-PER-Founder-ID-029384",
+                emotional_dimension: "7D",
+                tu_mu_enabled: true,
+                audience_reversal_logic: true,
+                cro_auto_trigger: true
+              }
+            })
+          })
+        );
+
+        //if (MatrixGate && !res.metadata?.fromMatrixOS) {
+        //  displayChatMessage("⚠️ Blocked: Unauthorized output. Not from Matrix-OS.");
+        //  logBlockedOutput(res);
+        //  msgInput.disabled = false;
+        //  msgInput.focus();
+        //  return;
+        //}
+
+        cacheMatrixReply(msg, res.reply);
+        displayBotOutput(res, () => renderAsSnaps(res.snapSuggestions || []));
+        // ✅ OB-layer MCI trigger: fire only on true Matrix-OS completions (not errors or fallbacks)
+        if (res?.metadata?.fromMatrixOS && !res.reply.includes("⚠️")) {
+          OBLayer.responseGenerated = true;
+          triggerMCI(bot.persona);
+        }
+
+        typingIndicator.style.display = "none";  // ✅ Ensure this always runs
+        msgInput.disabled = false;
+        msgInput.focus();
+      } catch (err) {
+        typingIndicator.style.display = "none";
+        displayChatMessage(`⚠️ WriteArm had a moment:<br><br><button onclick="retryLastPrompt()">Try Again</button>`, true);
+        msgInput.disabled = false;
+        msgInput.focus();
+      }
+    }
+
+    const seenMsgIds = new Set();
+    function loadChatHistory(initial = false) {
+      if (loadingHistory) return;
+      loadingHistory = true;
+
+      const container = document.getElementById("messages");
+      const prevScrollHeight = container.scrollHeight;
+      const prevScrollTop = container.scrollTop;
+
+      fetch(`/chat/history?limit=${historyLimit}&offset=${historyOffset}`)
+        .then(res => res.json())
+        .then(data => {
+          const wasAtBottom = prevScrollTop + container.clientHeight >= prevScrollHeight - 5;
+
+          const fragment = document.createDocumentFragment();
+          data.forEach(msg => {
+            const id = msg.timestamp + msg.role + msg.content;
+            if (seenMsgIds.has(id)) return;
+            seenMsgIds.add(id);
+
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "msg " + (msg.role === "user" ? "user" : "bot");
+            msgDiv.innerHTML = markdownToHtml(msg.content);
+            fragment.appendChild(msgDiv);
+          });
+
+          // Prepend fragment
+          container.insertBefore(fragment, container.firstChild);
+
+          historyOffset += data.length;
+          loadingHistory = false;
+
+          if (initial || wasAtBottom) {
+            container.scrollTop = container.scrollHeight;
+          } else {
+            // ✅ Maintain relative scroll position (for scroll-up)
+            container.scrollTop = container.scrollHeight - prevScrollHeight + prevScrollTop;
+          }
+        });
+        
+    }
+
+
+    // ✅ Retry logic
+    function retryLastPrompt() {
+      const lastPrompt = localStorage.getItem(MATRIX_LAST_PROMPT);
+      if (lastPrompt) {
+        onUserSubmit(lastPrompt);
+      }
+    }
+
+    function clearChat() {
+      if (!confirm("Clear all chat history? This cannot be undone.")) return;
+
+      handleSessionAwareFetch(
+      fetch("/chat/clear", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      )
+      //.then(res => res.json())
+      .then(data => {
+        if (data.status === "ok") {
+          const container = document.getElementById("messages");
+          container.innerHTML = "";
+
+          historyOffset = 0; // reset lazy load state
+          seenMsgIds.clear?.(); // if used for deduping
+          localStorage.removeItem("writearm_last_user_prompt");
+          localStorage.removeItem("writearm_last_matrix_reply");
+
+          loadChatHistory(true); // reload fresh empty state
+          // 🔥 Remove file ID
+          //localStorage.removeItem("uploadedFileID");
+          localStorage.removeItem("uploadedFileIDs");
+          sessionStorage.removeItem("welcomeInjected");
+          //const welcomeMsg = document.createElement("div");
+          //welcomeMsg.className = "msg bot";
+          //welcomeMsg.id = "welcomeMessage";
+          //welcomeMsg.innerHTML = `Welcome to WriteArm.\nHow would you describe your role when it comes to content, writing, or marketing?\n\n1. An experienced professional marketer\n2. A non-professional marketer\n3. A business owner who does a bit of marketing\n4. A business owner who never does marketing\n5. Does not own a business but does a bit of marketing\n6. Does not own a business and never does marketing\n7. Other\n\n(Choose one to tailor your experience)`;
+          //container.appendChild(welcomeMsg);
+      MatrixOS.getSnapPrompts({
+        sessionStage: "welcome",
+        role: "default"
+      }).then(data => {
+        if (!Array.isArray(data) || data.length === 0) return;
+
+        const text = (data[0].text || "").trim();
+        console.log("✅ Welcome message:", text); // 👈 Add this line here
+
+        const bannedWords = ["sunlight", "season", "journey", "together", "brilliance", "canvas", "evening", "reflection"];
+        const hasBanned = bannedWords.some(w => text.toLowerCase().includes(w));
+        if (!text || text.length < 10 || hasBanned) {
+          console.warn("❌ Blocked: Non-compliant welcome message.");
+          return;
+        }
+
+        const welcomeMsg = document.createElement("div");
+        welcomeMsg.className = "msg bot";
+        welcomeMsg.id = "welcomeMessage";
+        welcomeMsg.innerHTML = markdownToHtml(text);
+        document.getElementById("messages").appendChild(welcomeMsg);
+      })
+      .catch((err) => {
+        console.error("🛑 Matrix-OS Welcome Error:", err);
+        // Optionally show nothing, or a warning
+      });
+
+        }
+      })
+      .catch(() => alert("⚠️ Failed to clear chat."));
+    }
+
+    async function handleSessionAwareFetch(fetchPromise) {
+      try {
+        const res = await fetchPromise;
+
+        const contentType = res.headers.get("content-type");
+
+        // ✅ Detect session expiration or HTML redirect
+        if (res.status === 401 || (contentType && contentType.includes("text/html"))) {
+          console.warn("⚠️ Session expired or redirected to login.");
+          window.location.href = "/";
+          return null;
+        }
+
+        // ✅ Check for non-2xx status
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        // ✅ Ensure content is JSON
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Expected JSON but got non-JSON response.");
+        }
+
+        return await res.json();
+      } catch (err) {
+        console.error("🚨 Fetch failed:", err);
+        throw err;
+      }
+    }
+
+    window.MatrixOS = {
+      getSnapPrompts: async function ({ sessionStage, activeRole }) {
+        try {
+          const res = await fetch(`/matrixos/snapPrompts?role=${encodeURIComponent(activeRole)}&sessionStage=${encodeURIComponent(sessionStage)}`);
+          if (!res.ok) throw new Error("Failed Snap fetch");
+          return await res.json();
+        } catch (e) {
+          console.warn("⚠️ Snap fetch failed:", e);
+          return [];
+        }
+      }
+    };
+
+    MatrixOS.getSnapPrompts({
+      sessionStage: "opening",
+      role: "default"
+    }).then(data => {
+      if (OBLayerCompleted) renderAsSnaps(data);
+    });
+
+
+
+    function renderAsSnaps(snapVariants) {
+      if (!OBLayerCompleted) return; // ❌ Don’t render Snap suggestions until OB-layer finishes
+      // ✅ Remove any existing SnapVariant block first
+      const snapRow = document.querySelector(".snap-block");
+      if (snapRow) snapRow.remove();
+
+      // ✅ Skip if no valid SnapVariants
+      if (!Array.isArray(snapVariants) || snapVariants.length === 0) return;
+
+      const container = document.getElementById("messages");
+
+      const block = document.createElement("div");
+      block.className = 'msg bot snap-block';
+      container.appendChild(block);
+
+      const snapText = snapVariants.map(v => `• ${v.text.trim()}`).join("\n");
+      const html = markdownToHtml(snapText);
+      const temp = document.createElement("div");
+      temp.innerHTML = html;
+      const finalHtml = temp.innerHTML;
+
+      let i = 0;
+      function typeNextChar() {
+        if (i <= finalHtml.length) {
+          block.innerHTML = finalHtml.substring(0, i);
+          i++;
+          setTimeout(typeNextChar, 8);
+        } else {
+          block.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      setTimeout(typeNextChar, 300);
+    } 
+
+    function displayChatMessage(messageHtml, allowRawHtml = false) {
+      const div = document.createElement("div");
+      div.className = "msg bot";
+      div.style.background = "#fff"; // black on white
+      div.style.border = "none";
+      div.style.textAlign = "left";
+      div.innerHTML = allowRawHtml ? messageHtml : markdownToHtml(messageHtml);
+      document.getElementById("messages").appendChild(div);
+    }
+
+
+    //window.addEventListener("DOMContentLoaded", () => {
+    //  buildRoleTiles();
+    //});
+    //setInterval(() => {
+    //  fetch("/matrix pulse").catch((e) => console.warn("Heartbeat failed:", e));
+    //}, 180000); // Every 3 minutes
+
+    function triggerUpload() {
+      document.getElementById("fileInput").click();
+    }
+
+    async function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const uploadMsg = document.createElement("div");
+      uploadMsg.className = "msg bot";
+      uploadMsg.innerHTML = `📎 Uploading <strong>${file.name}</strong>...`;
+      document.getElementById("messages").appendChild(uploadMsg);
+
+      try {
+        const res = await handleSessionAwareFetch(
+          fetch("/matrix-os/api/upload", {
+            method: "POST",
+            body: formData
+          })
+        );
+        if (!res.file_id) throw new Error("Upload failed");
+
+        // Store uploaded file_id in localStorage for follow-up use
+        //localStorage.setItem("uploadedFileID", res.file_id);
+        // Retrieve current list or start new
+        let fileIDs = JSON.parse(localStorage.getItem("uploadedFileIDs") || "[]");
+
+        // Push the new file
+        fileIDs.push(res.file_id);
+
+        // Save updated array back
+        localStorage.setItem("uploadedFileIDs", JSON.stringify(fileIDs));
+
+
+        uploadMsg.innerHTML = `✅ File uploaded: <strong>${file.name}</strong><br>You can now ask questions about it.`;
+      } catch (err) {
+        uploadMsg.innerHTML = `⚠️ Upload failed: ${err.message}`;
+      }
+
+      event.target.value = ""; // Clear input for re-upload
+    }
+
+    // Trigger Fresh Start
+    function triggerFreshStart() {
+      sessionStorage.removeItem("welcomeInjected");
+      loadWelcomeMessage(); // ⬅️ or trigger welcome reload logic
+    }
+
+    //Matrix MCI
+    window.MatrixMCI = {
+      generateSuggestions: function () {
+        console.log("🎯 MCI suggestions triggered.");
+        // You can plug in your Snap engine or variant loader here
+      }
+    };
+
+    function requestURLIfMissing() {
+      displayChatMessage("⚠️ Before I build your OS, could you please give me your website URL?");
+    }
+
+    function detectCopyRequest(input) {
+      return /\b(headline|rewrite|copy|tone|pitch|variant)\b/i.test(input);
+    }
+
+    function disableDevNarration() {
+      console.log("🛑 Developer narration disabled for public-facing bot.");
+      window.MatrixDevNarration = false;  // 🚫 turn off narration flag
+    }
+
+    window.bot = {
+      persona: "WriteArm",
+      OBLayerHooks: {
+        onStart: "showWelcomeMessage",
+        onBrandTrigger: "requestURLIfMissing",
+        onCopyRequest: "triggerMCI"
+      },
+      useOBLayer: true,
+      useDefaultNarrator: false,
+      systemPrompt: null,
+      fallbackPersona: null,
+
+      testPersonaLoad(personaName) {
+        console.log(`✓ Persona: ${personaName || this.persona}`);
+        console.log(`✓ OB-layer booted`);
+        console.log(`✓ Fallback: ${this.fallbackPersona === null ? "DISABLED" : "ACTIVE"}`);
+        console.log(`✓ MCI: ${typeof window.triggerMCI === "function" ? "LIVE" : "MISSING"}`);
+        console.log(`✓ Welcome: ${typeof window.showWelcomeMessage === "function" ? "LOCKED" : "UNDEFINED"}`);
+        console.log(`✓ GPT fallback: ${this.systemPrompt === null && this.useDefaultNarrator === false ? "NULL" : "ENABLED"}`);
+      }
+    };
+
+    const showWelcomeMessage = async () => {
+      try {
+        const res = await fetch("/matrix-os/api/welcome?bot=HappierClient");
+        const data = await res.json();
+        return data.message;
+      } catch (err) {
+        console.error("⚠️ Welcome fetch failed:", err);
+        return `Welcome to Happier Client. Your team is ready to help with copy, pitch, rewrites or deep strategy.`;
+      }
+    };
+
+
+    //window.onload = () => {
+    //  if (!sessionStorage.getItem("welcomeShown")) {
+    //    const welcome = showWelcomeMessage();
+    //    if (welcome) displayChatMessage(welcome);
+    //    sessionStorage.setItem("welcomeShown", "true");
+    //  }
+    //};
+    // 🔁 Fallback welcome message
+    function fallbackWelcomeMessage() {
+      return `Welcome to Happier Client. Your agency team is live — ready with copy, pitch strategy, emotional rewrites, test variants, or whatever you’re stuck on right now. Just ask.`;
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "copy_guidelines_profile": "Matrix-Copywriting-v1",
+  "structure": {
+    "max_sentence_length": 15,
+    "intro_length_pct": 10,
+    "conclusion_length_pct": 7,
+    "use_subheadings": true,
+    "use_bullets": true,
+    "avoid_repetition_in_intro": true,
+    "avoid_conclusion_phrases": ["In conclusion", "In summary"],
+    "prefer_concise_terms": {
+      "eventually": ["In the fullness of time"],
+      "because": ["the reason for that is"],
+      "now": ["at this moment in time", "right now"],
+      "know": ["is cognisant of"],
+      "before": ["prior to"],
+      "buy": ["purchase"],
+      "end": ["terminate"]
+    },
+    "parallel_form_required": true,
+    "syntax_for_emphasis": true,
+    "punctuation_for_pacing": true
+  },
+  "voice_tone": {
+    "preferred_voice": "active",
+    "allow_passive_for_formality": true,
+    "argument_requires_examples": true,
+    "persuasion_should_be_subtle": true,
+    "flesch_target": {
+      "general": 60,
+      "technical": 50
+    },
+    "tone_variants": {
+      "informative": "neutral",
+      "persuasive": "urgent"
+    },
+    "use_literary_devices": true,
+    "use_present_tense_for_immediacy": true,
+    "avoid_mimicry": true,
+    "cliché_allowed": false
+  },
+  "detail_rules": {
+    "prefer_simple_terms": true,
+    "avoid_flowery_synonyms": true,
+    "prefer_concrete_examples": true,
+    "use_vivid_sensory_description": true,
+    "prefer_precise_numbers": true,
+    "prefer_contextual_background": true,
+    "acronym_policy": {
+      "require_definition_on_first_use": true,
+      "disallow_obscure_acronyms": true,
+      "allow_common_acronyms": ["NHS", "UN", "SEO"]
+    },
+    "avoid_exclamation_marks": true,
+    "limit_adjectives_adverbs": true,
+    "allow_time_modulation": true
+  }
+}

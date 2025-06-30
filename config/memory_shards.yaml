@@ -1,0 +1,11 @@
+shards:
+  - user_profile: /core/memory/user_profile.json
+  - open_loops: /core/memory/open_loops.json
+  - batch_state: /core/memory/batch_state.json
+  - tone_memory: /core/memory/tone_signals.json
+  - evolution_log: /core/memory/self_improvements.json
+
+rules:
+  on_new_input: update user_profile, tone_memory
+  on_module_trigger: update batch_state
+  on_output_score < 5: write to evolution_log

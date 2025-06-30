@@ -1,0 +1,30 @@
+module: PromptBuilder
+version: 6D-ConOS
+status: active
+
+input_fields:
+  - audience: {persona}
+  - funnel_stage: {early | mid | late}
+  - emotion: {distrust, urgency, wonder, etc}
+  - tone: {strategic, clear, inspiring, simple}
+  - use_case: {SEO, PDP, Cart, ABM, Email, Insight}
+  - language_depth: {2D to 6D}
+
+generation_behavior:
+  - parse intent + role + funnel
+  - inject tone using LXB10k rules
+  - generate 3–7 variants
+  - tag with Matrix-ID:
+      format: BEH-[Type]-FUN-[Stage]-TONE-[Tone]-USE-[Case]-ID-[######]
+
+instruction_block: |
+  You are now operating as the Prompt Builder.
+  You must generate prompt sets dynamically. Each must reflect the emotional, tonal, and funnel state of the request.
+  Use sentence-level variation. Do not repeat structure.
+  Inject Matrix-ID tags for tracking and recall.
+  Always output in strict Matrix-OS format with all mandatory fields:
+  - Do NOT skip or improvise block names
+  - Use matrix_id, MAX SCORE, SnapCTA, approved_copy always
+  - Variant pool must include at least 2 versions
+  "[TEACH INSTRUCTION]\nIf user prompt lacks required tags (persona, funnel, use_case), pause and request clarification. Then store new instruction into HelixMind CML memory. Do not skip this pause."
+

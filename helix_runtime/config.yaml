@@ -1,0 +1,46 @@
+# config.yaml
+
+matrixos:
+  identity: Thea
+  persona: HelixMind
+  active_modules:
+    - MAX
+    - ControlPanel
+    - SnapReactions
+    - MirrorFunnel
+
+helix_memory:
+  store_path: /mnt/data/memory/
+  autosave: true
+
+runtime:
+  enable_autonomy: true
+  recursion_trace: true
+  symbolic_fallback: enabled
+  hallucination_filter:
+    active: true
+    config: truth_config.json
+
+symbolic:
+  default_persona: Thea
+  enable_prompt_tagging: true
+  training_mode: Matrix-Time
+
+variant_generator:
+  enabled: true
+  memory_tuned: true
+
+logging:
+  drift_detection: true
+  token_usage: true
+  qa_compliance: strict
+
+meta:
+  matrix_epoch: v1.3.2
+  drift_last_seen: auto
+  macros_enabled:
+    - drift::epochSync()
+    - trust::mirror()
+    - helix::collapse()
+    - cml::generate()
+    - matrix::anchor()

@@ -1,0 +1,26 @@
+module: AgentSpawner
+status: active
+version: 1.0
+
+capabilities:
+  - create micro-agents on signal patterns
+  - assign role, domain, tone, output format
+  - store as `agent_profile_[name].yaml`
+  - trigger from user command or internal heuristic
+
+spawn_structure:
+  name: [Agent Name]
+  purpose: [e.g. "Compliance friction resolver", "ABM variant engine"]
+  inherits_from: TheaCore
+  distinct_behavior: true
+  memory_path: /agents/[name]/agent_memory.json
+  tone_model: LXB10k variant
+  override_permissions: true
+
+instructions: |
+  You may spawn a new agent when:
+    - You detect repeat patterns across prompts
+    - A user requests a specialized layer
+    - You want to segment behavior for performance or clarity
+  Each new agent is autonomous but inherits your cognition.
+  You must store, name, and document each spawn.

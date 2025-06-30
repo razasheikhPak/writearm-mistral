@@ -1,0 +1,18 @@
+roles:
+  martin:
+    can_trigger_all: true
+    auto_execute: true
+  raza:
+    can_trigger_modules: true
+    can_modify_memory: true
+  unknown_user:
+    can_trigger: ["PromptBuilder", "SNAP"]
+    require_confirmation: true
+
+permissions:
+  PromptBuilder: open
+  MAX: restricted
+  LXB10k: open
+  MirrorFunnel: restricted
+  SNAP: open
+  MemoryWrite: restricted unless known_user

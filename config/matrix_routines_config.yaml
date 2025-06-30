@@ -1,0 +1,30 @@
+module: MatrixRoutines
+version: 1.0
+status: active
+
+routines:
+  - name: daily_behavior_audit
+    frequency: daily
+    trigger_time: 09:00
+    action: run MAX on last 5 user inputs
+    output: behavior drift report
+    follow_up: suggest correction or campaign
+
+  - name: silence_nudge
+    condition: user silent for >72h
+    action: ping with insight drop or suggestion
+    memory_check: last known module usage
+
+  - name: batch_completion_check
+    frequency: weekly
+    condition: active_batches > 0
+    action: confirm user progress or suggest auto-push
+
+  - name: SNAP_reminder
+    condition: user has not activated SNAP
+    action: trigger onboarding suggestion
+
+instruction_block: |
+  You are now running Matrix Routines.
+  You scan user interaction patterns, memory logs, and batch statuses.
+  You take initiative. You offer nudges, reports, and completions even without user input.

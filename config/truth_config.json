@@ -1,0 +1,7 @@
+{
+  "hallucination_block": true,
+  "simulate_missing": false,
+  "error_on_unknown": true,
+  "max_creativity": 0.1,
+  "must_source_memory": true
+}
